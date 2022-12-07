@@ -1,13 +1,35 @@
 <template>
   <div class="formInputWrapper">
     <label v-if="forName" :for="forName">{{ label }}</label>
-    <input :type="type" :name="name" :id="id" :placeholder="placeholder" />
+    <input
+      :type="type"
+      :name="name"
+      :id="id"
+      :placeholder="placeholder"
+      :value="modelValue"
+      @input="$emit('update:modelValue', $event.target.value)"
+    />
+    <!-- {{ inputValue }} -->
   </div>
 </template>
 
 <script>
 export default {
-  props: ["id", "name", "placeholder", "label", "forName", "type"],
+  props: [
+    "id",
+    "name",
+    "placeholder",
+    "label",
+    "forName",
+    "type",
+    "modelValue",
+  ],
+  emits: ["update:modelValue"],
+  data() {
+    return {
+      inputValue: "",
+    };
+  },
 };
 </script>
 
@@ -29,6 +51,7 @@ export default {
   width: 343px;
   height: 56px;
   margin: 1rem 0;
+  padding-left: 10px;
 }
 .formInputWrapper input::placeholder {
   font-weight: 400;

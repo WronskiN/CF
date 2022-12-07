@@ -117,7 +117,7 @@
 
 <script>
 export default {
-  props: ['showProgress', 'showBrands'],
+  props: ["showProgress", "showBrands"],
   data() {
     return {
       step: 1,
@@ -183,6 +183,9 @@ header .container {
   display: flex;
   justify-content: space-between;
   margin: 20px 0 0 0;
+}
+.brandLogos img {
+  object-fit: contain;
 }
 .progressWrapper {
   width: 100%;

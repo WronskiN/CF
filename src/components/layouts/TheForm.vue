@@ -18,7 +18,7 @@
             v-model="postcode"
           ></base-input>
           <!-- <input type="text" name="postcode" id="postcode" v-model="postcode" /> -->
-          {{ postcode }}
+
           <continue-button
             step="1"
             class="contBtn"
@@ -301,12 +301,16 @@
 </template>
 
 <script>
+import { ref } from "vue";
+
+const postcode = ref("");
+
 export default {
   data() {
     return {
       step: 1,
       activeStep: 1,
-      postcode: "",
+      // postcode = "",
       currentBroadband: [
         { name: "Sky", id: "sky" },
         { name: "BT", id: "bt" },
@@ -341,7 +345,7 @@ export default {
       this.activeStep++;
       // this.postcode = this.postcode;
       console.log(this.activeStep);
-      console.log(this.postcode);
+      console.log(postcode);
     },
     prevStep() {
       this.step--;
