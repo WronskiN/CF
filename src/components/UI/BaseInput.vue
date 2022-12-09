@@ -1,6 +1,6 @@
 <template>
   <div class="formInputWrapper">
-    <label v-if="forName" :for="forName">{{ label }}</label>
+    <label v-if="label" :for="forName">{{ label }}</label>
     <input
       :type="type"
       :name="name"
@@ -8,28 +8,39 @@
       :placeholder="placeholder"
       :value="modelValue"
       @input="$emit('update:modelValue', $event.target.value)"
+      v-bind="$attrs"
     />
-    <!-- {{ inputValue }} -->
   </div>
 </template>
-
+      // @input="handleChange"
+    //  @input="$emit('update:modelValue', $event.target.value)"
 <script>
 export default {
-  props: [
-    "id",
-    "name",
-    "placeholder",
-    "label",
-    "forName",
-    "type",
-    "modelValue",
-  ],
-  emits: ["update:modelValue"],
-  data() {
-    return {
-      inputValue: "",
-    };
+  props: {
+    label: {
+      type: String,
+      default: "",
+    },
+    modelValue: {
+      type: [String, Number, Boolean],
+      default: "",
+    },
   },
+  // props: [
+  //   "id",
+  //   "name",
+  //   "placeholder",
+  //   "label",
+  //   "forName",
+  //   "type",
+  //   "modelValue",
+  // ],
+
+  // methods: {
+  //   handleChange(event) {
+  //     this.$emit("customChange", event.target.value);
+  //   },
+  // },
 };
 </script>
 

@@ -1,9 +1,14 @@
 <template>
   <div class="formSelect">
-    <select>
+    <select @input="$emit('update:modelValue', $event.target.value)">
       <option>Please Select</option>
-      <option v-for="option in options" :value="option.name" :key="option.id">
-        {{ option.name }}
+      <option
+        v-for="option in options"
+        :value="option.label"
+        :key="option.id"
+        v-bind="$attrs"
+      >
+        {{ option.label }}
       </option>
     </select>
   </div>
@@ -11,7 +16,11 @@
 
 <script>
 export default {
-  props: ["options"],
+  // props: ["options", "modelValue"],
+  props: {
+    options: Array,
+    modelValue: [String, Number],
+  },
 };
 </script>
 

@@ -17,7 +17,7 @@
             forName=""
             v-model="postcode"
           ></base-input>
-          <!-- <input type="text" name="postcode" id="postcode" v-model="postcode" /> -->
+          <!-- @custom-change="handleCustomChange" -->
 
           <continue-button
             step="1"
@@ -35,11 +35,17 @@
 
       <div v-if="activeStep === 2" class="form-step" data-step="2">
         <h3>Who provides your current Broadband?</h3>
-        <base-options :options="currentBroadband"></base-options>
+        <base-options
+          :options="currentBroadband"
+          v-model="broadband"
+        ></base-options>
         <h3>What’s your ideal speed?</h3>
-        <base-options :options="broadbandSpeed"></base-options>
+        <base-options :options="broadbandSpeed" v-model="speed"></base-options>
         <h3>Which Broadband type do you need?</h3>
-        <base-options :options="broadbandType"></base-options>
+        <base-options
+          :options="broadbandType"
+          v-model="broadType"
+        ></base-options>
         <div class="buttonWrapper">
           <back-button @click="prevStep()"></back-button>
           <continue-button
@@ -78,7 +84,11 @@
       <div v-if="activeStep === 3" class="form-step" data-step="3">
         <h3>What is your age?</h3>
         <div class="buttonWrapper">
-          <age-option :options="ageOptions"></age-option>
+          <age-option
+            :options="ageOptions"
+            :data-age="age"
+            @selectedAge="ageValue"
+          ></age-option>
         </div>
         <div class="buttonWrapper">
           <back-button @click="prevStep()"></back-button>
@@ -214,6 +224,7 @@
             placeholder="First Name"
             label="First Name"
             forName="First Name"
+            v-model="firstName"
           ></base-input>
           <base-input
             type="text"
@@ -222,6 +233,7 @@
             placeholder="Last Name"
             label="Last Name"
             forName="Last Name"
+            v-model="lastName"
           ></base-input>
           <base-input
             type="tel"
@@ -230,6 +242,7 @@
             placeholder="Telephone"
             label="Telephone"
             forName="Telephone"
+            v-model="phone"
           ></base-input>
           <base-input
             type="email"
@@ -238,6 +251,7 @@
             placeholder="Email"
             label="Email"
             forName="Email"
+            v-model="email"
           ></base-input>
           <div class="formCheckboxWrapper">
             <input
@@ -245,6 +259,7 @@
               type="checkbox"
               name="signup"
               id="signup"
+              v-model="signup"
             />
             <label class="signupLabel" for="signup"
               >If you would like to receive the best deals on Broadband and
@@ -301,33 +316,38 @@
 </template>
 
 <script>
-import { ref } from "vue";
-
-const postcode = ref("");
-
 export default {
   data() {
     return {
       step: 1,
       activeStep: 1,
-      // postcode = "",
+      postcode: "",
+      fristName: "",
+      lastName: "",
+      email: "",
+      phone: "",
+      broadband: "",
+      speed: "",
+      broadType: "",
+      age: "",
+      signup: false,
       currentBroadband: [
-        { name: "Sky", id: "sky" },
-        { name: "BT", id: "bt" },
-        { name: "EE", id: "ee" },
-        { name: "Virgin Media", id: "virgin-media" },
-        { name: "Other", id: "other" },
-        { name: "Dont have one", id: "dont-have-one" },
+        { label: "Sky", id: "sky" },
+        { label: "BT", id: "bt" },
+        { label: "EE", id: "ee" },
+        { label: "Virgin Media", id: "virgin-media" },
+        { label: "Other", id: "other" },
+        { label: "Dont have one", id: "dont-have-one" },
       ],
       broadbandSpeed: [
-        { name: "0 - 30 mbps", id: "0-30mbps" },
-        { name: "30 - 60 mbps", id: "30-60mbps" },
-        { name: "60 mbps +", id: "over60mbps" },
+        { label: "0 - 30 mbps", id: "0-30mbps" },
+        { label: "30 - 60 mbps", id: "30-60mbps" },
+        { label: "60 mbps +", id: "over60mbps" },
       ],
       broadbandType: [
-        { name: "Fibre", id: "fibre" },
-        { name: "Standard", id: "standard" },
-        { name: "Not Sure", id: "notsure" },
+        { label: "Fibre", id: "fibre" },
+        { label: "Standard", id: "standard" },
+        { label: "Not Sure", id: "notsure" },
       ],
       ageOptions: [
         { age: "18-24", id: "18-24" },
@@ -343,14 +363,22 @@ export default {
     nextStep() {
       this.step++;
       this.activeStep++;
-      // this.postcode = this.postcode;
-      console.log(this.activeStep);
-      console.log(postcode);
+
+      console.log("postcode: " + this.postcode);
+      console.log("broadband: " + this.broadband);
+      console.log("broadType: " + this.broadType);
+      console.log("speed: " + this.speed);
+      console.log("age: " + this.age);
+      // console.log("phone: " + this.phone);
+      // console.log("signup: " + this.signup);
     },
     prevStep() {
       this.step--;
       this.activeStep--;
-      console.log(this.activeStep);
+    },
+    ageValue(val) {
+      this.age = val;
+      console.log("test" + this.age);
     },
   },
 };
