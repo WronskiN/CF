@@ -16,7 +16,6 @@
 
 <script>
 export default {
-  // props: ["options", "modelValue"],
   props: {
     options: Array,
     modelValue: [String, Number],

@@ -11,7 +11,7 @@ const routes = [
     {
         path: '/thank-you',
         name: 'ThankYou',
-        component: ThankYouPage
+        component: ThankYouPage,
     }
 ]
 

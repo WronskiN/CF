@@ -6,14 +6,14 @@
       :name="name"
       :id="id"
       :placeholder="placeholder"
+      :selected="modelValue"
       :value="modelValue"
       @input="$emit('update:modelValue', $event.target.value)"
       v-bind="$attrs"
     />
   </div>
 </template>
-      // @input="handleChange"
-    //  @input="$emit('update:modelValue', $event.target.value)"
+
 <script>
 export default {
   props: {
@@ -26,23 +26,9 @@ export default {
       default: "",
     },
   },
-  // props: [
-  //   "id",
-  //   "name",
-  //   "placeholder",
-  //   "label",
-  //   "forName",
-  //   "type",
-  //   "modelValue",
-  // ],
-
-  // methods: {
-  //   handleChange(event) {
-  //     this.$emit("customChange", event.target.value);
-  //   },
-  // },
 };
 </script>
+
 
 <style scoped>
 .formInputWrapper {

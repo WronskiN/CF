@@ -5,7 +5,7 @@
       v-for="option in options"
       :key="option.id"
       :data-age="option.age"
-      @click="selectedAgeOption(option.age)"
+      @click="$emit('ageChange', option.age)"
     >
       <h5>{{ option.age }}</h5>
     </li>
@@ -16,7 +16,6 @@
 export default {
   props: {
     options: Array,
-    selectedAgeOption: Function,
   },
   data() {
     return {
@@ -27,7 +26,6 @@ export default {
     selectAgeOption(age) {
       this.selectedAge = age;
       this.$emit("selectedAge", this.selectedAge);
-      console.log(this.selectedAge);
     },
   },
 };

@@ -1,33 +1,17 @@
 <template>
   <div class="main-wrapper">
-    <!-- <TheHeader />
-    <TheForm />
-    <TheFooter /> -->
-    <!-- <div class="">
-      <router-link to="/">HomePage</router-link>
-      <router-link to="thank-you">Thank You</router-link>
-    </div> -->
     <router-view />
   </div>
 </template>
-
 <script>
-// import TheFooter from "./components/layouts/TheFooter.vue";
-// import TheHeader from "./components/layouts/TheHeader.vue";
-// import TheForm from "./components/layouts/TheForm.vue";
-
 export default {
   name: "App",
-  // components: {
-  //   TheFooter,
-  //   TheHeader,
-  //   TheForm,
-  // },
 };
 </script>
 
 <style>
-@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Lora:ital,wght@0,400;1,700&family=Montserrat:ital,wght@0,400;0,700;1,400&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Lora:ital,wght@0,400;1,700&family=Montserrat:ital,wght@0,400;0,700;1,400&family=Nunito&display=swap");
+
 *,
 *::before,
 *::after {
@@ -46,6 +30,7 @@ h1 {
   font-size: 32px;
   line-height: 40px;
   margin-bottom: 1rem;
+  font-family: "Nunito", sans-serif;
 }
 h2 {
   font-weight: 700;
@@ -79,8 +64,14 @@ h3 {
 }
 #app {
   font-family: "Inter", sans-serif;
-  /* font-family: "Lora", serif;
-  font-family: "Montserrat", sans-serif; */
+  font-family: "Nunito", sans-serif;
   width: 100%;
+}
+.invalidInput {
+  color: #ff0000 !important;
+  font-size: 14px !important;
+}
+.mt-2 {
+  margin-top: 0.5rem;
 }
 </style>

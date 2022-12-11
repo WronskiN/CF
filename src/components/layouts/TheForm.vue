@@ -1,281 +1,77 @@
 <template>
   <div class="formContainer">
-    <form @submit.prevent="">
-      <div v-if="activeStep === 1" class="form-step" data-step="1">
-        <h1>Get a Better Broadband and WiFi Deal at your Home</h1>
-        <h2>What’s your postcode?</h2>
-        <p class="postcodeParagraph">
-          Enter your postcode and click ‘Continue’.
-        </p>
-        <div class="btnWrapper">
-          <base-input
-            type="text"
-            name="postcode"
-            id="postcode"
-            placeholder="eg. SW1A 1AA"
-            label=""
-            forName=""
-            v-model="postcode"
-          ></base-input>
-          <!-- @custom-change="handleCustomChange" -->
-
-          <continue-button
-            step="1"
-            class="contBtn"
-            @click="nextStep"
-          ></continue-button>
-        </div>
-        <p class="formStepBottomDescription">
-          Find a better Broadband and WiFi deal in your area. Choose from big
-          providers such as TalkTalk, Virgin, Sky and Shell. Unlimited,
-          Superfast deals with speeds up to 900mbps. Find out the top speed at
-          your address. Enter your postcode and find deals in your area.
-        </p>
-      </div>
-
-      <div v-if="activeStep === 2" class="form-step" data-step="2">
-        <h3>Who provides your current Broadband?</h3>
-        <base-options
-          :options="currentBroadband"
-          v-model="broadband"
-        ></base-options>
-        <h3>What’s your ideal speed?</h3>
-        <base-options :options="broadbandSpeed" v-model="speed"></base-options>
-        <h3>Which Broadband type do you need?</h3>
-        <base-options
-          :options="broadbandType"
-          v-model="broadType"
-        ></base-options>
-        <div class="buttonWrapper">
-          <back-button @click="prevStep()"></back-button>
-          <continue-button
-            step="2"
-            class="contBtnSecond"
-            @click="nextStep()"
-          ></continue-button>
-        </div>
-        <div class="formStepBottom">
-          <div class="safeSecure">
-            <svg
-              width="10"
-              height="11"
-              viewBox="0 0 10 11"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                d="M8.92857 4.8125H8.39286V3.26562C8.39286 1.46523 6.87054 0 5 0C3.12946 0 1.60714 1.46523 1.60714 3.26562V4.8125H1.07143C0.479911 4.8125 0 5.27441 0 5.84375V9.96875C0 10.5381 0.479911 11 1.07143 11H8.92857C9.52009 11 10 10.5381 10 9.96875V5.84375C10 5.27441 9.52009 4.8125 8.92857 4.8125ZM5.89286 8.42188C5.89286 8.89668 5.4933 9.28125 5 9.28125C4.5067 9.28125 4.10714 8.89668 4.10714 8.42188V7.39062C4.10714 6.91582 4.5067 6.53125 5 6.53125C5.4933 6.53125 5.89286 6.91582 5.89286 7.39062V8.42188ZM6.60714 4.8125H3.39286V3.26562C3.39286 2.4127 4.11384 1.71875 5 1.71875C5.88616 1.71875 6.60714 2.4127 6.60714 3.26562V4.8125Z"
-                fill="#001429"
-              />
-            </svg>
-            <p class="safeSecureText">Safe | Secure | Privacy Protected</p>
-          </div>
-          <div>
-            <img
-              src="../../assets/let-s-encrypt-logo.png"
-              alt="lets encrypted logo"
-              width="80px"
-              height="auto"
-            />
-          </div>
-        </div>
-      </div>
-
-      <div v-if="activeStep === 3" class="form-step" data-step="3">
-        <h3>What is your age?</h3>
-        <div class="buttonWrapper">
-          <age-option
-            :options="ageOptions"
-            :data-age="age"
-            @selectedAge="ageValue"
-          ></age-option>
-        </div>
-        <div class="buttonWrapper">
-          <back-button @click="prevStep()"></back-button>
-          <continue-button
-            step="3"
-            class="contBtnSecond none"
-            @click="nextStep()"
-          ></continue-button>
-        </div>
-        <div class="formStepBottom">
-          <div class="safeSecure">
-            <svg
-              width="10"
-              height="11"
-              viewBox="0 0 10 11"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                d="M8.92857 4.8125H8.39286V3.26562C8.39286 1.46523 6.87054 0 5 0C3.12946 0 1.60714 1.46523 1.60714 3.26562V4.8125H1.07143C0.479911 4.8125 0 5.27441 0 5.84375V9.96875C0 10.5381 0.479911 11 1.07143 11H8.92857C9.52009 11 10 10.5381 10 9.96875V5.84375C10 5.27441 9.52009 4.8125 8.92857 4.8125ZM5.89286 8.42188C5.89286 8.89668 5.4933 9.28125 5 9.28125C4.5067 9.28125 4.10714 8.89668 4.10714 8.42188V7.39062C4.10714 6.91582 4.5067 6.53125 5 6.53125C5.4933 6.53125 5.89286 6.91582 5.89286 7.39062V8.42188ZM6.60714 4.8125H3.39286V3.26562C3.39286 2.4127 4.11384 1.71875 5 1.71875C5.88616 1.71875 6.60714 2.4127 6.60714 3.26562V4.8125Z"
-                fill="#001429"
-              />
-            </svg>
-            <p class="safeSecureText">Safe | Secure | Privacy Protected</p>
-          </div>
-          <div>
-            <img
-              src="../../assets/let-s-encrypt-logo.png"
-              alt="lets encrypted logo"
-              width="80px"
-              height="auto"
-            />
-          </div>
-        </div>
-      </div>
-      <div
-        class="form-step form-step-result"
-        data-step="4"
-        style="display: none"
-      >
-        <div class="resultCard">
-          <div class="resultCardTop">
-            <div class="resultMessage">
-              <span>1</span>We've found you an offer!
-            </div>
-            <div class="resultCardTopInner">
-              <p>Offered by:</p>
-              <img
-                src="../../assets/talktalk.png"
-                alt="talktalk logo"
-                width="90px"
-                height="auto"
-              />
-            </div>
-          </div>
-          <div class="resulCardOfferPackage">
-            <img
-              src="../../assets/broadband-result.png"
-              alt="offer package"
-              width="100%"
-              height="auto"
-              style="border-radius: 5px"
-            />
-          </div>
-          <div class="resultCardPackageDetails">
-            <p class="subTitle">Monthly Cost From:</p>
-            <p class="price">£17.95</p>
-            <p class="subTitle">Features included:</p>
-            <ul>
-              <li>
-                <svg
-                  width="15"
-                  height="16"
-                  viewBox="0 0 15 16"
-                  fill="none"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path
-                    fill-rule="evenodd"
-                    clip-rule="evenodd"
-                    d="M7.5 15.2373C6.01664 15.2373 4.56659 14.7974 3.33322 13.9733C2.09986 13.1492 1.13857 11.9779 0.570908 10.6074C0.00325078 9.23699 -0.145276 7.72899 0.144113 6.27413C0.433502 4.81927 1.14781 3.4829 2.1967 2.434C3.2456 1.38511 4.58197 0.670805 6.03682 0.381416C7.49168 0.0920273 8.99968 0.24056 10.3701 0.808217C11.7406 1.37587 12.9119 2.33716 13.736 3.57053C14.5601 4.8039 15 6.25395 15 7.73731C15 9.72643 14.2098 11.6341 12.8033 13.0406C11.3968 14.4471 9.48913 15.2373 7.5 15.2373ZM11.8162 5.07689C11.65 4.91079 11.4246 4.81749 11.1896 4.81749C10.9546 4.81749 10.7292 4.91079 10.5629 5.07689L6.23917 9.40064L4.83584 7.9973C4.66999 7.83785 4.44822 7.74981 4.21816 7.75207C3.98811 7.75433 3.76811 7.84672 3.60543 8.0094C3.44275 8.17208 3.35035 8.39208 3.34809 8.62214C3.34583 8.85219 3.43388 9.07395 3.59334 9.2398L5.58125 11.2277C5.76694 11.3887 6.00446 11.4773 6.25021 11.4773C6.49597 11.4773 6.73348 11.3887 6.91917 11.2277L11.8162 6.33064C11.8986 6.24833 11.9639 6.15061 12.0085 6.04305C12.0531 5.93549 12.076 5.8202 12.076 5.70377C12.076 5.58734 12.0531 5.47204 12.0085 5.36448C11.9639 5.25692 11.8986 5.15919 11.8162 5.07689Z"
-                    fill="#32CE8D"
-                  />
-                </svg>
-                Unlimited Superfast Broadband
-              </li>
-              <li>
-                <svg
-                  width="15"
-                  height="16"
-                  viewBox="0 0 15 16"
-                  fill="none"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path
-                    fill-rule="evenodd"
-                    clip-rule="evenodd"
-                    d="M7.5 15.2373C6.01664 15.2373 4.56659 14.7974 3.33322 13.9733C2.09986 13.1492 1.13857 11.9779 0.570908 10.6074C0.00325078 9.23699 -0.145276 7.72899 0.144113 6.27413C0.433502 4.81927 1.14781 3.4829 2.1967 2.434C3.2456 1.38511 4.58197 0.670805 6.03682 0.381416C7.49168 0.0920273 8.99968 0.24056 10.3701 0.808217C11.7406 1.37587 12.9119 2.33716 13.736 3.57053C14.5601 4.8039 15 6.25395 15 7.73731C15 9.72643 14.2098 11.6341 12.8033 13.0406C11.3968 14.4471 9.48913 15.2373 7.5 15.2373ZM11.8162 5.07689C11.65 4.91079 11.4246 4.81749 11.1896 4.81749C10.9546 4.81749 10.7292 4.91079 10.5629 5.07689L6.23917 9.40064L4.83584 7.9973C4.66999 7.83785 4.44822 7.74981 4.21816 7.75207C3.98811 7.75433 3.76811 7.84672 3.60543 8.0094C3.44275 8.17208 3.35035 8.39208 3.34809 8.62214C3.34583 8.85219 3.43388 9.07395 3.59334 9.2398L5.58125 11.2277C5.76694 11.3887 6.00446 11.4773 6.25021 11.4773C6.49597 11.4773 6.73348 11.3887 6.91917 11.2277L11.8162 6.33064C11.8986 6.24833 11.9639 6.15061 12.0085 6.04305C12.0531 5.93549 12.076 5.8202 12.076 5.70377C12.076 5.58734 12.0531 5.47204 12.0085 5.36448C11.9639 5.25692 11.8986 5.15919 11.8162 5.07689Z"
-                    fill="#32CE8D"
-                  />
-                </svg>
-                No Price Increases
-              </li>
-              <li>
-                <svg
-                  width="15"
-                  height="16"
-                  viewBox="0 0 15 16"
-                  fill="none"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path
-                    fill-rule="evenodd"
-                    clip-rule="evenodd"
-                    d="M7.5 15.2373C6.01664 15.2373 4.56659 14.7974 3.33322 13.9733C2.09986 13.1492 1.13857 11.9779 0.570908 10.6074C0.00325078 9.23699 -0.145276 7.72899 0.144113 6.27413C0.433502 4.81927 1.14781 3.4829 2.1967 2.434C3.2456 1.38511 4.58197 0.670805 6.03682 0.381416C7.49168 0.0920273 8.99968 0.24056 10.3701 0.808217C11.7406 1.37587 12.9119 2.33716 13.736 3.57053C14.5601 4.8039 15 6.25395 15 7.73731C15 9.72643 14.2098 11.6341 12.8033 13.0406C11.3968 14.4471 9.48913 15.2373 7.5 15.2373ZM11.8162 5.07689C11.65 4.91079 11.4246 4.81749 11.1896 4.81749C10.9546 4.81749 10.7292 4.91079 10.5629 5.07689L6.23917 9.40064L4.83584 7.9973C4.66999 7.83785 4.44822 7.74981 4.21816 7.75207C3.98811 7.75433 3.76811 7.84672 3.60543 8.0094C3.44275 8.17208 3.35035 8.39208 3.34809 8.62214C3.34583 8.85219 3.43388 9.07395 3.59334 9.2398L5.58125 11.2277C5.76694 11.3887 6.00446 11.4773 6.25021 11.4773C6.49597 11.4773 6.73348 11.3887 6.91917 11.2277L11.8162 6.33064C11.8986 6.24833 11.9639 6.15061 12.0085 6.04305C12.0531 5.93549 12.076 5.8202 12.076 5.70377C12.076 5.58734 12.0531 5.47204 12.0085 5.36448C11.9639 5.25692 11.8986 5.15919 11.8162 5.07689Z"
-                    fill="#32CE8D"
-                  />
-                </svg>
-                <p>
-                  <span>Amazon Echo Dot</span> and
-                  <span>Amazon Smart Plug</span> Included on selected deals
-                </p>
-              </li>
-            </ul>
-            <a class="findOutMoreLink" href="">Find Out More</a>
-          </div>
-        </div>
-        <div class="btnWrapper">
-          <base-input
-            type="text"
-            name="First Name"
-            id="first-name"
-            placeholder="First Name"
-            label="First Name"
-            forName="First Name"
-            v-model="firstName"
-          ></base-input>
-          <base-input
-            type="text"
-            name="Last Name"
-            id="last-name"
-            placeholder="Last Name"
-            label="Last Name"
-            forName="Last Name"
-            v-model="lastName"
-          ></base-input>
-          <base-input
-            type="tel"
-            name="Telephone"
-            id="telephone"
-            placeholder="Telephone"
-            label="Telephone"
-            forName="Telephone"
-            v-model="phone"
-          ></base-input>
-          <base-input
-            type="email"
-            name="Email"
-            id="email"
-            placeholder="Email"
-            label="Email"
-            forName="Email"
-            v-model="email"
-          ></base-input>
-          <div class="formCheckboxWrapper">
-            <input
-              class="signupInput"
-              type="checkbox"
-              name="signup"
-              id="signup"
-              v-model="signup"
-            />
-            <label class="signupLabel" for="signup"
-              >If you would like to receive the best deals on Broadband and
-              other offers from CF-Broadband.com, please tick this box.</label
-            >
-          </div>
-          <continue-button
-            step="4"
-            class="contBtn"
-            style="width: 100%"
-          ></continue-button>
-          <p class="privacyPolicyDesc">
-            By clicking “Continue”, you agree to our Privacy Policy and to be
-            contacted by phone, email and SMS by a Broadband Advisor
+    <form
+      @submit.prevent="submitForm"
+      action="/thank-you"
+      class="broadband-form"
+    >
+      <transition>
+        <div v-if="activeStep === 1" class="form-step" data-step="1">
+          <h1>Get a Better Broadband and WiFi Deal at your Home</h1>
+          <h2>What’s your postcode?</h2>
+          <p class="postcodeParagraph">
+            Enter your postcode and click ‘Continue’.
           </p>
-          <back-button></back-button>
+          <div class="btnWrapper">
+            <base-input
+              type="text"
+              name="postcode"
+              id="postcode"
+              placeholder="eg. SW1A 1AA"
+              v-model="postcode"
+            ></base-input>
+            <p v-if="invalidInput" class="invalidInput mt-2">
+              This field is required
+            </p>
+
+            <continue-button
+              step="1"
+              class="contBtn"
+              @click="nextStep(step)"
+            ></continue-button>
+          </div>
+          <p class="formStepBottomDescription">
+            Find a better Broadband and WiFi deal in your area. Choose from big
+            providers such as TalkTalk, Virgin, Sky and Shell. Unlimited,
+            Superfast deals with speeds up to 900mbps. Find out the top speed at
+            your address. Enter your postcode and find deals in your area.
+          </p>
+        </div>
+      </transition>
+
+      <transition>
+        <div v-if="activeStep === 2" class="form-step" data-step="2">
+          <h3>Who provides your current Broadband?</h3>
+          <base-options
+            :options="currentBroadband"
+            v-model="broadband"
+            @change="optionChangeHandler(broadband)"
+          ></base-options>
+          <p v-if="invalidSelectBroadband" class="invalidInput mt-2">
+            This field is required
+          </p>
+          <h3>What’s your ideal speed?</h3>
+          <base-options
+            :options="broadbandSpeed"
+            v-model="this.speed"
+            @change="optionChangeHandler(speed)"
+          ></base-options>
+          <p v-if="invalidSelectSpeed" class="invalidInput mt-2">
+            This field is required
+          </p>
+          <h3>Which Broadband type do you need?</h3>
+          <base-options
+            :options="broadbandType"
+            v-model="this.broadType"
+            @change="optionChangeHandler(broadType)"
+          ></base-options>
+          <p v-if="invalidSelectType" class="invalidInput mt-2">
+            This field is required
+          </p>
+          <div class="buttonWrapper">
+            <back-button @click="prevStep(2)"></back-button>
+            <continue-button step="2" @click="nextStep(step)"></continue-button>
+          </div>
           <div class="formStepBottom">
             <div class="safeSecure">
               <svg
@@ -302,10 +98,260 @@
             </div>
           </div>
         </div>
-      </div>
+      </transition>
+
+      <transition>
+        <div v-if="activeStep === 3" class="form-step" data-step="3">
+          <h3>What is your age?</h3>
+          <div class="buttonWrapper">
+            <age-options
+              step="3"
+              :options="ageOptions"
+              :data-age="age"
+              @ageChange="changeAgeHandler"
+              @click="nextStep(step)"
+              :class="{ active: isAgeActive }"
+            ></age-options>
+          </div>
+          <div class="buttonWrapper">
+            <back-button @click="prevStep(3)"></back-button>
+            <continue-button
+              step="3"
+              class="contBtnSecond"
+              @click="nextStep(step)"
+              v-if="isActive"
+            ></continue-button>
+          </div>
+          <div class="formStepBottom">
+            <div class="safeSecure">
+              <svg
+                width="10"
+                height="11"
+                viewBox="0 0 10 11"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M8.92857 4.8125H8.39286V3.26562C8.39286 1.46523 6.87054 0 5 0C3.12946 0 1.60714 1.46523 1.60714 3.26562V4.8125H1.07143C0.479911 4.8125 0 5.27441 0 5.84375V9.96875C0 10.5381 0.479911 11 1.07143 11H8.92857C9.52009 11 10 10.5381 10 9.96875V5.84375C10 5.27441 9.52009 4.8125 8.92857 4.8125ZM5.89286 8.42188C5.89286 8.89668 5.4933 9.28125 5 9.28125C4.5067 9.28125 4.10714 8.89668 4.10714 8.42188V7.39062C4.10714 6.91582 4.5067 6.53125 5 6.53125C5.4933 6.53125 5.89286 6.91582 5.89286 7.39062V8.42188ZM6.60714 4.8125H3.39286V3.26562C3.39286 2.4127 4.11384 1.71875 5 1.71875C5.88616 1.71875 6.60714 2.4127 6.60714 3.26562V4.8125Z"
+                  fill="#001429"
+                />
+              </svg>
+              <p class="safeSecureText">Safe | Secure | Privacy Protected</p>
+            </div>
+            <div>
+              <img
+                src="../../assets/let-s-encrypt-logo.png"
+                alt="lets encrypted logo"
+                width="80px"
+                height="auto"
+              />
+            </div>
+          </div>
+        </div>
+      </transition>
+      <transition>
+        <div
+          v-if="activeStep === 4"
+          class="form-step form-step-result"
+          data-step="4"
+        >
+          <div class="resultCard">
+            <div class="resultCardTop">
+              <div class="resultMessage">
+                <span>1</span>We've found you an offer!
+              </div>
+              <div class="resultCardTopInner">
+                <p>Offered by:</p>
+                <img
+                  src="../../assets/talktalk.png"
+                  alt="talktalk logo"
+                  width="90px"
+                  height="auto"
+                />
+              </div>
+            </div>
+            <div class="resulCardOfferPackage">
+              <img
+                src="../../assets/broadband-result.png"
+                alt="offer package"
+                width="100%"
+                height="auto"
+                style="border-radius: 5px"
+              />
+            </div>
+            <div class="resultCardPackageDetails">
+              <p class="subTitle">Monthly Cost From:</p>
+              <p class="price">£17.95</p>
+              <p class="subTitle">Features included:</p>
+              <ul>
+                <li>
+                  <svg
+                    width="15"
+                    height="16"
+                    viewBox="0 0 15 16"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      fill-rule="evenodd"
+                      clip-rule="evenodd"
+                      d="M7.5 15.2373C6.01664 15.2373 4.56659 14.7974 3.33322 13.9733C2.09986 13.1492 1.13857 11.9779 0.570908 10.6074C0.00325078 9.23699 -0.145276 7.72899 0.144113 6.27413C0.433502 4.81927 1.14781 3.4829 2.1967 2.434C3.2456 1.38511 4.58197 0.670805 6.03682 0.381416C7.49168 0.0920273 8.99968 0.24056 10.3701 0.808217C11.7406 1.37587 12.9119 2.33716 13.736 3.57053C14.5601 4.8039 15 6.25395 15 7.73731C15 9.72643 14.2098 11.6341 12.8033 13.0406C11.3968 14.4471 9.48913 15.2373 7.5 15.2373ZM11.8162 5.07689C11.65 4.91079 11.4246 4.81749 11.1896 4.81749C10.9546 4.81749 10.7292 4.91079 10.5629 5.07689L6.23917 9.40064L4.83584 7.9973C4.66999 7.83785 4.44822 7.74981 4.21816 7.75207C3.98811 7.75433 3.76811 7.84672 3.60543 8.0094C3.44275 8.17208 3.35035 8.39208 3.34809 8.62214C3.34583 8.85219 3.43388 9.07395 3.59334 9.2398L5.58125 11.2277C5.76694 11.3887 6.00446 11.4773 6.25021 11.4773C6.49597 11.4773 6.73348 11.3887 6.91917 11.2277L11.8162 6.33064C11.8986 6.24833 11.9639 6.15061 12.0085 6.04305C12.0531 5.93549 12.076 5.8202 12.076 5.70377C12.076 5.58734 12.0531 5.47204 12.0085 5.36448C11.9639 5.25692 11.8986 5.15919 11.8162 5.07689Z"
+                      fill="#32CE8D"
+                    />
+                  </svg>
+                  Unlimited Superfast Broadband
+                </li>
+                <li>
+                  <svg
+                    width="15"
+                    height="16"
+                    viewBox="0 0 15 16"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      fill-rule="evenodd"
+                      clip-rule="evenodd"
+                      d="M7.5 15.2373C6.01664 15.2373 4.56659 14.7974 3.33322 13.9733C2.09986 13.1492 1.13857 11.9779 0.570908 10.6074C0.00325078 9.23699 -0.145276 7.72899 0.144113 6.27413C0.433502 4.81927 1.14781 3.4829 2.1967 2.434C3.2456 1.38511 4.58197 0.670805 6.03682 0.381416C7.49168 0.0920273 8.99968 0.24056 10.3701 0.808217C11.7406 1.37587 12.9119 2.33716 13.736 3.57053C14.5601 4.8039 15 6.25395 15 7.73731C15 9.72643 14.2098 11.6341 12.8033 13.0406C11.3968 14.4471 9.48913 15.2373 7.5 15.2373ZM11.8162 5.07689C11.65 4.91079 11.4246 4.81749 11.1896 4.81749C10.9546 4.81749 10.7292 4.91079 10.5629 5.07689L6.23917 9.40064L4.83584 7.9973C4.66999 7.83785 4.44822 7.74981 4.21816 7.75207C3.98811 7.75433 3.76811 7.84672 3.60543 8.0094C3.44275 8.17208 3.35035 8.39208 3.34809 8.62214C3.34583 8.85219 3.43388 9.07395 3.59334 9.2398L5.58125 11.2277C5.76694 11.3887 6.00446 11.4773 6.25021 11.4773C6.49597 11.4773 6.73348 11.3887 6.91917 11.2277L11.8162 6.33064C11.8986 6.24833 11.9639 6.15061 12.0085 6.04305C12.0531 5.93549 12.076 5.8202 12.076 5.70377C12.076 5.58734 12.0531 5.47204 12.0085 5.36448C11.9639 5.25692 11.8986 5.15919 11.8162 5.07689Z"
+                      fill="#32CE8D"
+                    />
+                  </svg>
+                  No Price Increases
+                </li>
+                <li>
+                  <svg
+                    width="15"
+                    height="16"
+                    viewBox="0 0 15 16"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      fill-rule="evenodd"
+                      clip-rule="evenodd"
+                      d="M7.5 15.2373C6.01664 15.2373 4.56659 14.7974 3.33322 13.9733C2.09986 13.1492 1.13857 11.9779 0.570908 10.6074C0.00325078 9.23699 -0.145276 7.72899 0.144113 6.27413C0.433502 4.81927 1.14781 3.4829 2.1967 2.434C3.2456 1.38511 4.58197 0.670805 6.03682 0.381416C7.49168 0.0920273 8.99968 0.24056 10.3701 0.808217C11.7406 1.37587 12.9119 2.33716 13.736 3.57053C14.5601 4.8039 15 6.25395 15 7.73731C15 9.72643 14.2098 11.6341 12.8033 13.0406C11.3968 14.4471 9.48913 15.2373 7.5 15.2373ZM11.8162 5.07689C11.65 4.91079 11.4246 4.81749 11.1896 4.81749C10.9546 4.81749 10.7292 4.91079 10.5629 5.07689L6.23917 9.40064L4.83584 7.9973C4.66999 7.83785 4.44822 7.74981 4.21816 7.75207C3.98811 7.75433 3.76811 7.84672 3.60543 8.0094C3.44275 8.17208 3.35035 8.39208 3.34809 8.62214C3.34583 8.85219 3.43388 9.07395 3.59334 9.2398L5.58125 11.2277C5.76694 11.3887 6.00446 11.4773 6.25021 11.4773C6.49597 11.4773 6.73348 11.3887 6.91917 11.2277L11.8162 6.33064C11.8986 6.24833 11.9639 6.15061 12.0085 6.04305C12.0531 5.93549 12.076 5.8202 12.076 5.70377C12.076 5.58734 12.0531 5.47204 12.0085 5.36448C11.9639 5.25692 11.8986 5.15919 11.8162 5.07689Z"
+                      fill="#32CE8D"
+                    />
+                  </svg>
+                  <p>
+                    <span>Amazon Echo Dot</span> and
+                    <span>Amazon Smart Plug</span> Included on selected deals
+                  </p>
+                </li>
+              </ul>
+              <a class="findOutMoreLink" href="#first-name" v-smooth-scroll
+                >Find Out More</a
+              >
+            </div>
+          </div>
+          <div class="btnWrapper">
+            <base-input
+              type="text"
+              name="First Name"
+              id="first-name"
+              placeholder="First Name"
+              label="First Name"
+              forName="First Name"
+              v-model="firstName"
+              @change="inputChangeHandler(firstName)"
+            ></base-input>
+            <p v-if="invalidFirstName" class="invalidInput mt-2">
+              This field is required
+            </p>
+            <base-input
+              type="text"
+              name="Last Name"
+              id="last-name"
+              placeholder="Last Name"
+              label="Last Name"
+              forName="Last Name"
+              v-model="lastName"
+              @change="inputChangeHandler(lastName)"
+            ></base-input>
+            <p v-if="invalidLastName" class="invalidInput mt-2">
+              This field is required
+            </p>
+            <base-input
+              type="tel"
+              name="Telephone"
+              id="telephone"
+              placeholder="Telephone"
+              label="Telephone"
+              forName="Telephone"
+              v-model="phone"
+              @change="inputChangeHandler(phone)"
+            ></base-input>
+            <p v-if="invalidPhone" class="invalidInput mt-2">
+              This field is required
+            </p>
+            <base-input
+              type="email"
+              name="Email"
+              id="email"
+              placeholder="Email"
+              label="Email"
+              forName="Email"
+              v-model="email"
+              @change="inputChangeHandler(email)"
+            ></base-input>
+            <p v-if="invalidEmail" class="invalidInput mt-2">
+              This field is required
+            </p>
+            <div class="formCheckboxWrapper">
+              <input
+                class="signupInput"
+                type="checkbox"
+                name="signup"
+                id="signup"
+                v-model="signup"
+              />
+              <label class="signupLabel" for="signup"
+                >If you would like to receive the best deals on Broadband and
+                other offers from CF-Broadband.com, please tick this box.</label
+              >
+            </div>
+            <continue-button
+              step="4"
+              class="contBtn"
+              style="width: 100%"
+              type="submit"
+            ></continue-button>
+            <p class="privacyPolicyDesc">
+              By clicking “Continue”, you agree to our Privacy Policy and to be
+              contacted by phone, email and SMS by a Broadband Advisor
+            </p>
+            <back-button @click="prevStep(4)"></back-button>
+            <div class="formStepBottom">
+              <div class="safeSecure">
+                <svg
+                  width="10"
+                  height="11"
+                  viewBox="0 0 10 11"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M8.92857 4.8125H8.39286V3.26562C8.39286 1.46523 6.87054 0 5 0C3.12946 0 1.60714 1.46523 1.60714 3.26562V4.8125H1.07143C0.479911 4.8125 0 5.27441 0 5.84375V9.96875C0 10.5381 0.479911 11 1.07143 11H8.92857C9.52009 11 10 10.5381 10 9.96875V5.84375C10 5.27441 9.52009 4.8125 8.92857 4.8125ZM5.89286 8.42188C5.89286 8.89668 5.4933 9.28125 5 9.28125C4.5067 9.28125 4.10714 8.89668 4.10714 8.42188V7.39062C4.10714 6.91582 4.5067 6.53125 5 6.53125C5.4933 6.53125 5.89286 6.91582 5.89286 7.39062V8.42188ZM6.60714 4.8125H3.39286V3.26562C3.39286 2.4127 4.11384 1.71875 5 1.71875C5.88616 1.71875 6.60714 2.4127 6.60714 3.26562V4.8125Z"
+                    fill="#001429"
+                  />
+                </svg>
+                <p class="safeSecureText">Safe | Secure | Privacy Protected</p>
+              </div>
+              <div>
+                <img
+                  src="../../assets/let-s-encrypt-logo.png"
+                  alt="lets encrypted logo"
+                  width="80px"
+                  height="auto"
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+      </transition>
     </form>
 
-    <div class="loadingView" style="display: none">
+    <div v-if="loadingData" class="loadingView">
       <div class="loadingViewInner">
         <div class="dot1"></div>
         <div class="dot2"></div>
@@ -331,6 +377,18 @@ export default {
       broadType: "",
       age: "",
       signup: false,
+      invalidInput: null,
+      invalidSelectBroadband: null,
+      invalidSelectSpeed: null,
+      invalidSelectType: null,
+      invalidFirstName: null,
+      invalidLastName: null,
+      invalidPhone: null,
+      invalidEmail: null,
+      loadingData: false,
+      formData: [],
+      isActive: false,
+      isAgeActive: false,
       currentBroadband: [
         { label: "Sky", id: "sky" },
         { label: "BT", id: "bt" },
@@ -360,31 +418,180 @@ export default {
     };
   },
   methods: {
-    nextStep() {
-      this.step++;
-      this.activeStep++;
+    nextStep(step) {
+      this.invalidInput = false;
+      console.log(step);
+      if (step === 1 && this.postcode.length > 6) {
+        this.step++;
+        this.activeStep++;
+        console.log(this.activeStep);
+      } else {
+        this.invalidInput = !this.invalidInput;
+      }
 
-      console.log("postcode: " + this.postcode);
-      console.log("broadband: " + this.broadband);
-      console.log("broadType: " + this.broadType);
-      console.log("speed: " + this.speed);
-      console.log("age: " + this.age);
-      // console.log("phone: " + this.phone);
-      // console.log("signup: " + this.signup);
+      if (
+        step === 2 &&
+        this.broadband !== "" &&
+        this.broadType !== "" &&
+        this.speed !== ""
+      ) {
+        this.step++;
+        this.activeStep++;
+      }
+
+      if (step === 3 && this.age) {
+        this.loadingData = true;
+        this.isAgeActive = true;
+        setTimeout(() => (this.loadingData = false), 1500);
+        this.step++;
+        this.activeStep++;
+        console.log(step);
+      }
+
+      if (step === 2 && !this.broadband) {
+        this.invalidSelectBroadband = !this.invalidSelectBroadband;
+      } else {
+        this.invalidSelectBroadband = false;
+      }
+      if (step === 2 && !this.broadType) {
+        this.invalidSelectType = !this.invalidSelectType;
+      } else {
+        this.invalidSelectType = false;
+      }
+      if (step === 2 && !this.speed) {
+        this.invalidSelectSpeed = !this.invalidSelectSpeed;
+      } else {
+        this.invalidSelectSpeed = false;
+      }
+      if (step === 4 && !this.firstName) {
+        this.invalidFirstName = !this.invalidFirstName;
+      } else {
+        this.invalidFirstName = false;
+      }
+      if (step === 4 && !this.lastName) {
+        this.invalidLastName = !this.invalidLastName;
+      } else {
+        this.invalidLastName = false;
+      }
+      if (step === 4 && !this.phone) {
+        this.invalidPhone = !this.invalidPhone;
+      } else {
+        this.invalidPhone = false;
+      }
+      if (step === 4 && !this.email) {
+        this.invalidEmail = !this.invalidEmail;
+      } else {
+        this.invalidEmail = false;
+      }
     },
-    prevStep() {
+    prevStep(step) {
+      if (step === 1 && this.postcode !== "") {
+        this.invalidInput = false;
+      }
+      if (step === 4) {
+        this.loadingData = false;
+        this.isActive = true;
+        this.isAgeActive = true;
+      }
       this.step--;
       this.activeStep--;
+      console.log(this.broadband);
     },
     ageValue(val) {
       this.age = val;
       console.log("test" + this.age);
+    },
+    changeAgeHandler(age) {
+      this.age = age;
+    },
+    optionChangeHandler(value) {
+      if (value === this.broadband) {
+        this.invalidSelectBroadband = false;
+      }
+      if (value === this.speed) {
+        this.invalidSelectSpeed = false;
+      }
+      if (value === this.broadType) {
+        this.invalidSelectType = false;
+      }
+    },
+    inputChangeHandler(value) {
+      if (value === this.firstName) {
+        this.invalidFirstName = false;
+      }
+      if (value === this.lastName) {
+        this.invalidLastName = false;
+      }
+      if (value === this.phone) {
+        this.invalidPhone = false;
+      }
+      if (value === this.email) {
+        this.invalidEmail = false;
+      }
+    },
+    submitForm() {
+      if (!this.firstName) {
+        this.invalidFirstName = true;
+      }
+      if (!this.lasteName) {
+        this.invalidLastName = true;
+      }
+      if (!this.phone) {
+        this.invalidPhone = true;
+      }
+      if (!this.email) {
+        this.invalidEmail = true;
+      }
+      if (
+        this.postcode &&
+        this.firstName &&
+        this.lastName &&
+        this.age &&
+        this.broadband &&
+        this.broadType &&
+        this.speed
+      ) {
+        this.loadingData = true;
+        this.formData.push(
+          this.postcode,
+          this.firstName,
+          this.lastName,
+          this.broadband,
+          this.broadType,
+          this.speed,
+          this.signup
+        );
+      }
+      if (this.formData.length > 0) {
+        setTimeout(function () {
+          this.loadingData = false;
+        }, 1500);
+        this.$router.push("/thank-you");
+      } else {
+        console.log("error submit form unsuccessful");
+      }
     },
   },
 };
 </script>
 
 <style scoped>
+.broadband-form {
+  overflow: hidden;
+}
+.v-enter-active,
+.v-leave-active {
+  position: relative;
+  opacity: 0;
+  transition: all 0.8s ease-in-out;
+  transform: translateX(-200%);
+}
+.v-enter-from,
+.v-leave-to {
+  opacity: 0;
+  transform: translateX(200%);
+}
+
 .resultCardTopInner {
   display: flex;
   align-items: center;
@@ -468,6 +675,12 @@ export default {
   max-width: 800px;
   margin: 20px auto;
   padding: 10px 16px;
+  min-height: calc(100vh - 280px);
+}
+.formContainerInner {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
   min-height: calc(100vh - 280px);
 }
 p {
@@ -559,6 +772,26 @@ p {
   margin-top: 1rem;
   text-align: center;
 }
+.resultCardPackageDetails .findOutMoreLink {
+  border: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 56px;
+  background: #f25a38;
+  border-radius: 100px;
+  font-weight: 700;
+  line-height: 32px;
+  color: #fff;
+  cursor: pointer;
+  font-size: 20px;
+  transition: all 0.2s ease-in-out;
+  text-decoration: none;
+}
+.resultCardPackageDetails .findOutMoreLink:hover {
+  background: #eb350c;
+}
 @media (min-width: 768px) {
   .formStepBottomDescription {
     font-size: 14px;
@@ -589,7 +822,7 @@ p {
 
   .loadingView {
     width: 100%;
-    height: 100%;
+    height: 100vh;
     position: absolute;
     top: 50%;
     left: 50%;
@@ -604,26 +837,6 @@ p {
     display: flex;
     justify-content: center;
     align-items: center;
-  }
-  .resultCardPackageDetails .findOutMoreLink {
-    border: none;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 100%;
-    height: 56px;
-    background: #f25a38;
-    border-radius: 100px;
-    font-weight: 700;
-    line-height: 32px;
-    color: #fff;
-    cursor: pointer;
-    font-size: 20px;
-    transition: all 0.2s ease-in-out;
-    text-decoration: none;
-  }
-  .resultCardPackageDetails .findOutMoreLink:hover {
-    background: #eb350c;
   }
 
   @keyframes ScaleInOut {
